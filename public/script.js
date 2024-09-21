@@ -1,7 +1,3 @@
-// Import các thư viện Firebase
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, push, set } from "firebase/database";
-
 // Cấu hình Firebase của bạn
 const firebaseConfig = {
   apiKey: "AIzaSyD_49CYLkS-4bSAmpHAXPFaKlZ_UmY_46I",
