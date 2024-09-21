@@ -139,8 +139,30 @@
     </footer>
 
     <!-- JavaScript -->
+    <!-- Tải Firebase SDK trước khi sử dụng trong script.js -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+
+    <!-- Khởi tạo Firebase trong cùng file HTML -->
+    <script>
+      // Cấu hình Firebase
+      const firebaseConfig = {
+        apiKey: "AIzaSyD_49CYLkS-4bSAmpHAXPFaKlZ_UmY_46I",
+        authDomain: "petcare-project-dec50.firebaseapp.com",
+        databaseURL: "https://petcare-project-dec50-default-rtdb.firebaseio.com",
+        projectId: "petcare-project-dec50",
+        storageBucket: "petcare-project-dec50.appspot.com",
+        messagingSenderId: "257060539542",
+        appId: "1:257060539542:web:2772a651332c5f155006b7",
+        measurementId: "G-2YFYP2B3Z0"
+      };
+
+      // Khởi tạo Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+      const database = firebase.database();
+    </script>
+
+    <!-- Sau đó, nạp script.js của bạn -->
     <script src="script.js"></script>
 </body>
 </html>
