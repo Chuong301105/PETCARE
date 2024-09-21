@@ -51,3 +51,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+console.log(firebase);  // Kiểm tra nếu firebase đã được khởi tạo đúng
+console.log(firebase.database());  // Kiểm tra kết nối đến Firebase Realtime Database
+
