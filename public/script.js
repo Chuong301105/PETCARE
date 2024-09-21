@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Toggle the visibility of the "other pet type" field
     petSelect.addEventListener('change', function () {
-        if (petSelect.value == 'others') {
+        if (petSelect.value === 'others') {
             otherPetTypeDiv.style.display = 'block';
         } else {
             otherPetTypeDiv.style.display = 'none';
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Toggle the visibility of the address field
     function toggleAddressField() {
-        if (homeService.value == 'yes' || pickUpService.value == 'yes') {
+        if (homeService.value === 'yes' || pickUpService.value == 'yes') {
             addressField.style.display = 'block';
         } else {
             addressField.style.display = 'none';
