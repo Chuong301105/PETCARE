@@ -10,7 +10,7 @@ const firebaseConfig = {
 };
 
 // Khởi tạo Firebase và Firestore
-const app = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 // DOM elements
