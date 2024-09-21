@@ -1,4 +1,3 @@
-
 const firebaseConfig = {
     apiKey: "AIzaSyD_49CYLkS-4bSAmpHAXPFaKlZ_UmY_46I",
     authDomain: "petcare-project-dec50.firebaseapp.com",
