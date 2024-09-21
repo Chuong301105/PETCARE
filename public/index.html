@@ -140,11 +140,11 @@
 
     <!-- JavaScript -->
     <!-- Tải Firebase SDK trước khi sử dụng trong script.js -->
+    <!-- Firebase CDN -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 
-    <!-- Khởi tạo Firebase trong cùng file HTML -->
-           <script>
+    <script>
         // Cấu hình Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyD_49CYLkS-4bSAmpHAXPFaKlZ_UmY_46I",
@@ -158,8 +158,8 @@
         };
 
         // Khởi tạo Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database(); // Đảm bảo `database` được định nghĩa ngay sau khi Firebase được khởi tạo
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
 
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('serviceForm');
@@ -171,6 +171,11 @@
                     phone: document.getElementById('phone').value,
                     email: document.getElementById('email').value,
                     pet: document.getElementById('pet').value,
+                    otherType: document.getElementById('otherType').value || '',
+                    services: Array.from(document.querySelectorAll('input[name="services"]:checked')).map(el => el.value),
+                    homeService: document.getElementById('homeService').value,
+                    pickUpService: document.getElementById('pickUpService').value,
+                    address: document.getElementById('address').value || '',
                     message: document.getElementById('message').value
                 };
 
@@ -183,6 +188,7 @@
                     responseMessage.textContent = 'Đã gửi thông tin thành công!';
                     responseMessage.style.color = 'green';
                     responseMessage.style.display = 'block';
+
                     form.reset();
                 })
                 .catch(error => {
