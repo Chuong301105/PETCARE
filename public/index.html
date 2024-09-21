@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supabase Demo</title>
+    <title>Supabase Realtime Example</title>
 </head>
 <body>
     <h1>Supabase Realtime Example</h1>
@@ -17,41 +17,43 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
     <script>
-        // Cấu hình Supabase
-        const supabaseUrl = 'https://wetgmecllvrbsayvbakw.supabase.co'
-        const supabaseKey = process.env.SUPABASE_KEY
-        const supabase = createClient(supabaseUrl, supabaseKey)
+        document.addEventListener('DOMContentLoaded', function () {
+            // Cấu hình Supabase với thông tin từ dashboard của bạn
+            const supabaseUrl = 'https://wetgmcellvrbsayvbakw.supabase.co';  // Project URL từ ảnh của bạn
+            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ';  // Public anon API Key từ ảnh của bạn
+            const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-        // DOM elements
-        const messageList = document.getElementById('messageList');
-        const messageInput = document.getElementById('messageInput');
-        const messageForm = document.getElementById('messageForm');
+            // DOM elements
+            const messageList = document.getElementById('messageList');
+            const messageInput = document.getElementById('messageInput');
+            const messageForm = document.getElementById('messageForm');
 
-        // Gửi tin nhắn lên Supabase
-        messageForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-            const message = messageInput.value;
-            const { data, error } = await supabase
+            // Gửi tin nhắn lên Supabase
+            messageForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const message = messageInput.value;
+                const { data, error } = await supabase
+                    .from('messages')  // Tên bảng trong Supabase
+                    .insert([{ content: message }]);
+
+                if (error) {
+                    console.error('Error inserting message:', error);
+                } else {
+                    console.log('Message added:', data);
+                    messageInput.value = '';  // Xóa nội dung input sau khi gửi
+                }
+            });
+
+            // Lấy và hiển thị tin nhắn thời gian thực
+            supabase
                 .from('messages')  // Tên bảng trong Supabase
-                .insert([{ content: message }]);
-
-            if (error) {
-                console.error('Error inserting message:', error);
-            } else {
-                console.log('Message added:', data);
-                messageInput.value = '';  // Xóa nội dung input sau khi gửi
-            }
+                .on('INSERT', payload => {
+                    const li = document.createElement('li');
+                    li.textContent = payload.new.content;
+                    messageList.appendChild(li);
+                })
+                .subscribe();
         });
-
-        // Lấy và hiển thị tin nhắn thời gian thực
-        supabase
-            .from('messages')  // Tên bảng trong Supabase
-            .on('INSERT', payload => {
-                const li = document.createElement('li');
-                li.textContent = payload.new.content;
-                messageList.appendChild(li);
-            })
-            .subscribe();
     </script>
 </body>
 </html>
