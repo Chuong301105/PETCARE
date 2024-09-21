@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Firebase Realtime Database</title>
+    <title>Pet Care Services</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Firebase Realtime Database Example</h1>
 
-    <!-- Form để nhập dữ liệu -->
+    <!-- Form để nhập tin nhắn -->
     <form id="dataForm">
-        <input type="text" id="messageInput" placeholder="Nhập tin nhắn">
+        <input type="text" id="messageInput" placeholder="Nhập tin nhắn của bạn">
         <button type="submit">Gửi</button>
     </form>
 
-    <!-- Khu vực hiển thị dữ liệu -->
-    <h2>Dữ liệu từ Firebase:</h2>
+    <!-- Nơi hiển thị danh sách tin nhắn -->
     <ul id="messageList"></ul>
 
-    <!-- Tải Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <!-- Firebase App và Firestore SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
