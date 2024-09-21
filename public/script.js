@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Toggle the visibility of the "other pet type" field
     petSelect.addEventListener('change', function () {
-        if (petSelect.value === 'others') {
+        if (petSelect.value == 'others') {
             otherPetTypeDiv.style.display = 'block';
         } else {
             otherPetTypeDiv.style.display = 'none';
