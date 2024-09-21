@@ -1,17 +1,4 @@
-// Cấu hình Firebase của bạn
-const firebaseConfig = {
-  apiKey: "AIzaSyD_49CYLkS-4bSAmpHAXPFaKlZ_UmY_46I",
-  authDomain: "petcare-project-dec50.firebaseapp.com",
-  projectId: "petcare-project-dec50",
-  storageBucket: "petcare-project-dec50.appspot.com",
-  messagingSenderId: "257060539542",
-  appId: "1:257060539542:web:2772a651332c5f155006b7",
-  measurementId: "G-2YFYP2B3Z0"
-};
-
-// Khởi tạo Firebase
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+// Bỏ qua khởi tạo Firebase, vì đã thực hiện trong HTML
 
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('serviceForm');
@@ -32,8 +19,8 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         // Lưu dữ liệu vào Firebase Realtime Database
-        const newCustomerRef = push(ref(database, 'customers'));
-        set(newCustomerRef, formData)
+        const newCustomerRef = firebase.database().ref('customers').push();
+        newCustomerRef.set(formData)
         .then(() => {
             console.log('Dữ liệu đã được lưu vào Firebase');
             const responseMessage = document.getElementById('responseMessage');
