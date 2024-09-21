@@ -15,10 +15,11 @@
 
     <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
     <script>
         // Cấu hình Supabase
-        const supabaseUrl = 'YOUR_SUPABASE_URL';
-        const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';
+        const supabaseUrl = 'YOUR_SUPABASE_URL';  // Thay thế bằng URL của Supabase
+        const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';  // Thay thế bằng API Key của Supabase
         const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
         // DOM elements
@@ -44,7 +45,7 @@
 
         // Lấy và hiển thị tin nhắn thời gian thực
         supabase
-            .from('messages')
+            .from('messages')  // Tên bảng trong Supabase
             .on('INSERT', payload => {
                 const li = document.createElement('li');
                 li.textContent = payload.new.content;
