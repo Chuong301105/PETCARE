@@ -2,6 +2,18 @@
 const supabaseUrl = 'https://wetgmec1lvrbsayvbakw.supabase.co'; // URL của Supabase mà bạn đã có
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ1cm46Z29vZ2xlOmZpcmViYXNlOm' // Đảm bảo bạn sao chép đúng API Key
 
+// Bắt lỗi khi kết nối với WebSocket
+supabase.realtime.onError((e) => {
+  console.log("WebSocket Error: ", e);
+});
+
+supabase
+  .from('messages')
+  .on('INSERT', payload => {
+    console.log('Message received: ', payload);
+  })
+  .subscribe();
+
 // Tạo client của Supabase
 const supabase = createClient(supabaseUrl, supabaseKey);
 
