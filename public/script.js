@@ -1,7 +1,3 @@
-// Khởi tạo Firebase
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-
 document.addEventListener('DOMContentLoaded', function () {
     const homeService = document.getElementById('homeService');
     const pickUpService = document.getElementById('pickUpService');
