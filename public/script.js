@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const pickUpService = document.getElementById('pickUpService');
     const addressField = document.getElementById('addressField');
 
-    // Hiển thị trường địa chỉ nếu phục vụ tại nhà hoặc đón bé tại nhà được chọn
     function toggleAddressField() {
         if (homeService.value === 'yes' || pickUpService.value === 'yes') {
             addressField.style.display = 'block';
@@ -15,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
     homeService.addEventListener('change', toggleAddressField);
     pickUpService.addEventListener('change', toggleAddressField);
 
-    // Thêm sự kiện cho form
     const form = document.getElementById('serviceForm');
     form.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -33,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
             message: document.getElementById('message').value
         };
 
-        // Lưu dữ liệu vào Firebase Realtime Database
+        // Khởi tạo Firebase và Lưu dữ liệu vào Firebase Realtime Database
         const newCustomerRef = firebase.database().ref('customers').push();
         newCustomerRef.set(formData)
         .then(() => {
@@ -42,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function () {
             responseMessage.textContent = 'Đã gửi thông tin thành công!';
             responseMessage.style.color = 'green';
             responseMessage.style.display = 'block';
-
             form.reset();
         })
         .catch(error => {
