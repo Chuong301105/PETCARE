@@ -17,10 +17,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 
     <script>
+        // Ensure the DOM is fully loaded
         document.addEventListener('DOMContentLoaded', function () {
-            // Cấu hình Supabase với thông tin từ dashboard của bạn
-            const supabaseUrl = 'https://wetgmcellvrbsayvbakw.supabase.co';  // Project URL từ ảnh của bạn
-            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ';  // Public anon API Key từ ảnh của bạn
+            // Initialize Supabase after SDK is loaded
+            const supabaseUrl = 'https://wetgmcellvrbsayvbakw.supabase.co';  // Your Supabase URL
+            const supabaseKey = 'eyJhbGc...';  // Your Supabase Anon Key
             const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
             // DOM elements
@@ -28,25 +29,25 @@
             const messageInput = document.getElementById('messageInput');
             const messageForm = document.getElementById('messageForm');
 
-            // Gửi tin nhắn lên Supabase
+            // Send messages to Supabase
             messageForm.addEventListener('submit', async (event) => {
                 event.preventDefault();
                 const message = messageInput.value;
                 const { data, error } = await supabase
-                    .from('messages')  // Tên bảng trong Supabase
+                    .from('messages')  // Make sure this table exists in your Supabase database
                     .insert([{ content: message }]);
 
                 if (error) {
                     console.error('Error inserting message:', error);
                 } else {
                     console.log('Message added:', data);
-                    messageInput.value = '';  // Xóa nội dung input sau khi gửi
+                    messageInput.value = '';  // Clear the input after submission
                 }
             });
 
-            // Lấy và hiển thị tin nhắn thời gian thực
+            // Listen for real-time updates
             supabase
-                .from('messages')  // Tên bảng trong Supabase
+                .from('messages')  // Make sure this table exists
                 .on('INSERT', payload => {
                     const li = document.createElement('li');
                     li.textContent = payload.new.content;
