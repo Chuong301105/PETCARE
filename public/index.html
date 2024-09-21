@@ -3,25 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Care Services</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Supabase Demo</title>
 </head>
 <body>
-
-    <!-- Form để nhập tin nhắn -->
-    <form id="dataForm">
+    <h1>Supabase Realtime Example</h1>
+    <ul id="messageList"></ul>
+    <form id="messageForm">
         <input type="text" id="messageInput" placeholder="Nhập tin nhắn của bạn">
         <button type="submit">Gửi</button>
     </form>
 
-    <!-- Nơi hiển thị danh sách tin nhắn -->
-    <ul id="messageList"></ul>
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script>
+        // Cấu hình Supabase
+        const supabaseUrl = 'YOUR_SUPABASE_URL';
+        const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-    <!-- Firebase App và Firestore SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+        // DOM elements
+        const messageList = document.getElementById('messageList');
+        const messageInput = document.getElementById('messageInput');
+        const messageForm = document.getElementById('messageForm');
 
-    <!-- Thêm script.js của bạn -->
-    <script src="script.js"></script>
+        // Gửi tin nhắn lên Supabase
+        messageForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const message = messageInput.value;
+            const { data, error } = await supabase
+                .from('messages')  // Tên bảng trong Supabase
+                .insert([{ content: message }]);
+
+            if (error) {
+                console.error('Error inserting message:', error);
+            } else {
+                console.log('Message added:', data);
+                messageInput.value = '';  // Xóa nội dung input sau khi gửi
+            }
+        });
+
+        // Lấy và hiển thị tin nhắn thời gian thực
+        supabase
+            .from('messages')
+            .on('INSERT', payload => {
+                const li = document.createElement('li');
+                li.textContent = payload.new.content;
+                messageList.appendChild(li);
+            })
+            .subscribe();
+    </script>
 </body>
 </html>
