@@ -1,14 +1,3 @@
-const firebaseConfig = {
-    apiKey: "AIzaSyD_49CYLkS-4bSAmpHAXPFaKlZ_UmY_46I",
-    authDomain: "petcare-project-dec50.firebaseapp.com",
-    databaseURL: "https://petcare-project-dec50-default-rtdb.firebaseio.com",
-    projectId: "petcare-project-dec50",
-    storageBucket: "petcare-project-dec50.appspot.com",
-    messagingSenderId: "257060539542",
-    appId: "1:257060539542:web:2772a651332c5f155006b7",
-    measurementId: "G-2YFYP2B3Z0"
-};
-
 // Khởi tạo Firebase
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
