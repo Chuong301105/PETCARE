@@ -1,3 +1,19 @@
+// Cấu hình Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyD_49CYLkS-4bSAmpHAXPFaKlZ_UmY_46I",
+    authDomain: "petcare-project-dec50.firebaseapp.com",
+    databaseURL: "https://petcare-project-dec50-default-rtdb.firebaseio.com",
+    projectId: "petcare-project-dec50",
+    storageBucket: "petcare-project-dec50.appspot.com",
+    messagingSenderId: "257060539542",
+    appId: "1:257060539542:web:2772a651332c5f155006b7",
+    measurementId: "G-2YFYP2B3Z0"
+};
+
+// Khởi tạo Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
 document.addEventListener('DOMContentLoaded', function () {
     const homeService = document.getElementById('homeService');
     const pickUpService = document.getElementById('pickUpService');
@@ -31,8 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
             message: document.getElementById('message').value
         };
 
-        // Khởi tạo Firebase và Lưu dữ liệu vào Firebase Realtime Database
-        const newCustomerRef = firebase.database().ref('customers').push();
+        // Lưu dữ liệu vào Firebase Realtime Database
+        const newCustomerRef = database.ref('customers').push();
         newCustomerRef.set(formData)
         .then(() => {
             console.log('Dữ liệu đã được lưu vào Firebase');
@@ -40,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
             responseMessage.textContent = 'Đã gửi thông tin thành công!';
             responseMessage.style.color = 'green';
             responseMessage.style.display = 'block';
+
             form.reset();
         })
         .catch(error => {
@@ -51,6 +68,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-console.log(firebase);  // Kiểm tra nếu firebase đã được khởi tạo đúng
-console.log(firebase.database());  // Kiểm tra kết nối đến Firebase Realtime Database
-
