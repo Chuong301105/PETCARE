@@ -1,50 +1,35 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const petSelect = document.getElementById('pet');
-    const otherPetType = document.getElementById('otherPetType');
-    const homeService = document.getElementById('homeService');
-    const pickUpService = document.getElementById('pickUpService');
-    const addressField = document.getElementById('addressField');
-
-    // Hiển thị trường "Loại thú cưng khác" khi chọn "Khác"
-    petSelect.addEventListener('change', function () {
-        if (petSelect.value === 'others') {
-            otherPetType.style.display = 'block';
-        } else {
-            otherPetType.style.display = 'none';
-        }
-    });
-
-    // Hiển thị trường "Địa chỉ" khi chọn phục vụ tại nhà hoặc đón bé tại nhà
-    function toggleAddressField() {
-        if (homeService.value === 'yes' || pickUpService.value === 'yes') {
-            addressField.style.display = 'block';
-        } else {
-            addressField.style.display = 'none';
-        }
-    }
-
-    homeService.addEventListener('change', toggleAddressField);
-    pickUpService.addEventListener('change', toggleAddressField);
-
     const form = document.getElementById('serviceForm');
+
     form.addEventListener('submit', function (event) {
         event.preventDefault();
 
+        // Lấy dữ liệu từ form
         const formData = {
             name: document.getElementById('name').value,
             phone: document.getElementById('phone').value,
             email: document.getElementById('email').value,
-            pet: document.getElementById('pet').value,
-            otherType: document.getElementById('otherType').value || '',
-            services: Array.from(document.querySelectorAll('input[name="services"]:checked')).map(el => el.value),
-            homeService: document.getElementById('homeService').value,
-            pickUpService: document.getElementById('pickUpService').value,
-            address: document.getElementById('address').value || '',
             message: document.getElementById('message').value
         };
 
-        // Lưu dữ liệu vào Firebase Realtime Database
-        const newCustomerRef = firebase.database().ref('customers').push();
+        // Khởi tạo Firebase và Lưu dữ liệu vào Firebase Realtime Database
+        const firebaseConfig = {
+            apiKey: "AIzaSyD_49CYLkS-4bSAmpHAXPFaKlZ_UmY_46I",
+            authDomain: "petcare-project-dec50.firebaseapp.com",
+            databaseURL: "https://petcare-project-dec50-default-rtdb.firebaseio.com",
+            projectId: "petcare-project-dec50",
+            storageBucket: "petcare-project-dec50.appspot.com",
+            messagingSenderId: "257060539542",
+            appId: "1:257060539542:web:2772a651332c5f155006b7",
+            measurementId: "G-2YFYP2B3Z0"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // Lưu dữ liệu vào Firebase
+        const newCustomerRef = database.ref('customers').push();
         newCustomerRef.set(formData)
         .then(() => {
             console.log('Dữ liệu đã được lưu vào Firebase');
