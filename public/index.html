@@ -144,8 +144,8 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 
     <!-- Khởi tạo Firebase trong cùng file HTML -->
-        <script>
-        
+           <script>
+        // Cấu hình Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyD_49CYLkS-4bSAmpHAXPFaKlZ_UmY_46I",
             authDomain: "petcare-project-dec50.firebaseapp.com",
@@ -158,8 +158,8 @@
         };
 
         // Khởi tạo Firebase
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database(); // Đảm bảo `database` được định nghĩa ngay sau khi Firebase được khởi tạo
 
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('serviceForm');
