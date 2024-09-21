@@ -97,14 +97,14 @@
             <!-- Dịch vụ -->
             <label>Chọn dịch vụ</label>
             <div class="checkbox-group">
-                <label>
-                    <input type="checkbox" name="services" value="Spa"> Spa
+                <label for="spa">
+                    <input type="checkbox" id="spa" name="services" value="Spa"> Spa
                 </label>
-                <label>
-                    <input type="checkbox" name="services" value="Training"> Huấn luyện
+                <label for="training">
+                    <input type="checkbox" id="training" name="services" value="Training"> Huấn luyện
                 </label>
-                <label>
-                    <input type="checkbox" name="services" value="Boarding"> Giữ thú cưng
+                <label for="boarding">
+                    <input type="checkbox" id="boarding" name="services" value="Boarding"> Giữ thú cưng
                 </label>
             </div>
     
@@ -121,6 +121,7 @@
             </select>
     
             <div id="addressField" style="display: none;">
+                <label for="address">Địa chỉ</label>
                 <input type="text" id="address" name="address" autocomplete="street-address" placeholder="Vui lòng nhập địa chỉ">
             </div>            
     
