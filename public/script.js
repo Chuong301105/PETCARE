@@ -1,16 +1,15 @@
-// Firebase configuration (no imports for the CDN version)
+// Initialize Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyD_49CYLkS-4bSAmpHAXPFaKlZ_UmY_46I",
-  authDomain: "petcare-project-dec50.firebaseapp.com",
-  databaseURL: "https://petcare-project-dec50-default-rtdb.firebaseio.com",
-  projectId: "petcare-project-dec50",
-  storageBucket: "petcare-project-dec50.appspot.com",
-  messagingSenderId: "257060539542",
-  appId: "1:257060539542:web:2772a651332c5f155006b7",
-  measurementId: "G-2YFYP2B3Z0"
+    apiKey: "AIzaSyD_49CYLkS-4bSAmpHAXPFaKlZ_UmY_46I",
+    authDomain: "petcare-project-dec50.firebaseapp.com",
+    databaseURL: "https://petcare-project-dec50-default-rtdb.firebaseio.com",
+    projectId: "petcare-project-dec50",
+    storageBucket: "petcare-project-dec50.appspot.com",
+    messagingSenderId: "257060539542",
+    appId: "1:257060539542:web:2772a651332c5f155006b7",
+    measurementId: "G-2YFYP2B3Z0"
 };
 
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
@@ -32,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Toggle the visibility of the address field
     function toggleAddressField() {
-        if (homeService.value === 'yes' || pickUpService.value == 'yes') {
+        if (homeService.value === 'yes' || pickUpService.value === 'yes') {
             addressField.style.display = 'block';
         } else {
             addressField.style.display = 'none';
