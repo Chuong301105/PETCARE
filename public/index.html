@@ -18,9 +18,9 @@
 
     <script>
         // Cấu hình Supabase
-        const supabaseUrl = 'YOUR_SUPABASE_URL';  // Thay thế bằng URL của Supabase
-        const supabaseKey = 'YOUR_SUPABASE_ANON_KEY';  // Thay thế bằng API Key của Supabase
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        const supabaseUrl = 'https://wetgmecllvrbsayvbakw.supabase.co'
+        const supabaseKey = process.env.SUPABASE_KEY
+        const supabase = createClient(supabaseUrl, supabaseKey)
 
         // DOM elements
         const messageList = document.getElementById('messageList');
