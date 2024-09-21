@@ -1,20 +1,21 @@
-// Khởi tạo Firebase mà không cần `import`
-const firebaseConfig = {
-  apiKey: "AIzaSyD_49CYLkS-4bSAmpHAXPFaKlZ_UmY_46I",
-  authDomain: "petcare-project-dec50.firebaseapp.com",
-  projectId: "petcare-project-dec50",
-  storageBucket: "petcare-project-dec50.appspot.com",
-  messagingSenderId: "257060539542",
-  appId: "1:257060539542:web:2772a651332c5f155006b7",
-  measurementId: "G-2YFYP2B3Z0"
-};
-
-// Initialize Firebase
-// Khởi tạo Firebase mà không cần lưu trữ biến `app`
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-
 document.addEventListener('DOMContentLoaded', function () {
+    const homeService = document.getElementById('homeService');
+    const pickUpService = document.getElementById('pickUpService');
+    const addressField = document.getElementById('addressField');
+
+    // Hiển thị trường địa chỉ nếu phục vụ tại nhà hoặc đón bé tại nhà được chọn
+    function toggleAddressField() {
+        if (homeService.value === 'yes' || pickUpService.value === 'yes') {
+            addressField.style.display = 'block';
+        } else {
+            addressField.style.display = 'none';
+        }
+    }
+
+    homeService.addEventListener('change', toggleAddressField);
+    pickUpService.addEventListener('change', toggleAddressField);
+
+    // Thêm sự kiện cho form
     const form = document.getElementById('serviceForm');
     form.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         // Lưu dữ liệu vào Firebase Realtime Database
-        const newCustomerRef = database.ref('customers').push();
+        const newCustomerRef = firebase.database().ref('customers').push();
         newCustomerRef.set(formData)
         .then(() => {
             console.log('Dữ liệu đã được lưu vào Firebase');
