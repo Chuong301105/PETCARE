@@ -3,79 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pet Care Services</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Firebase Realtime Update</title>
 </head>
 <body>
+    <h1>Firebase Realtime Database Example</h1>
 
-    <!-- Thanh điều hướng -->
-    <header>
-        <nav>
-            <div class="logo">PetCare</div>
-            <ul class="nav-links">
-                <li><a href="#home">Trang chủ</a></li>
-                <li><a href="#services">Dịch vụ</a></li>
-                <li><a href="#products">Sản phẩm</a></li>
-                <li><a href="#contact">Liên hệ</a></li>
-                <li><a href="#register">Đăng nhập</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Form để nhập dữ liệu -->
+    <form id="dataForm">
+        <input type="text" id="messageInput" placeholder="Nhập tin nhắn">
+        <button type="submit">Gửi</button>
+    </form>
 
-    <!-- Form dịch vụ -->
-    <section id="service-booking" class="contact">
-        <h2>Đặt dịch vụ chăm sóc thú cưng</h2>
-        <form id="serviceForm">
-            <label for="name">Tên của bạn</label>
-            <input type="text" id="name" name="name" placeholder="Nhập tên của bạn" required>
+    <!-- Khu vực hiển thị dữ liệu từ Firebase -->
+    <h2>Dữ liệu từ Firebase (Cập nhật theo thời gian thực):</h2>
+    <ul id="messageList"></ul>
 
-            <label for="phone">Số điện thoại</label>
-            <input type="text" id="phone" name="phone" placeholder="Nhập số điện thoại của bạn" required>
-
-            <label for="email">Email của bạn</label>
-            <input type="email" id="email" name="email" placeholder="Nhập email của bạn" required>
-
-            <label for="pet">Loại thú cưng</label>
-            <select id="pet" name="pet" required>
-                <option value="dog">Chó</option>
-                <option value="cat">Mèo</option>
-                <option value="others">Khác</option>
-            </select>
-
-            <div id="otherPetType" style="display: none;">
-                <label for="otherType">Loại thú cưng khác</label>
-                <input type="text" id="otherType" name="otherType" placeholder="Nhập loại thú cưng khác">
-            </div>
-
-            <label for="homeService">Phục vụ tại nhà</label>
-            <select id="homeService" name="homeService">
-                <option value="no">Không</option>
-                <option value="yes">Có</option>
-            </select>
-
-            <label for="pickUpService">Đón bé tại nhà</label>
-            <select id="pickUpService" name="pickUpService">
-                <option value="no">Không</option>
-                <option value="yes">Có</option>
-            </select>
-
-            <div id="addressField" style="display: none;">
-                <label for="address">Địa chỉ</label>
-                <input type="text" id="address" name="address" placeholder="Vui lòng nhập địa chỉ">
-            </div>
-
-            <label for="message">Tin nhắn</label>
-            <textarea id="message" name="message" placeholder="Nhập tin nhắn của bạn"></textarea>
-
-            <button type="submit" class="btn">Gửi</button>
-        </form>
-        <p id="responseMessage"></p>
-    </section>
-
-    <!-- Firebase SDKs -->
+    <!-- Tải Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-    <script src="script.js"></script>
 
+    <script src="script.js"></script>
 </body>
 </html>
