@@ -1,8 +1,4 @@
-// Import các thư viện Firebase
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, push, set } from "firebase/database";
-
-// Cấu hình Firebase của bạn
+// Khởi tạo Firebase mà không cần `import`
 const firebaseConfig = {
   apiKey: "AIzaSyD_49CYLkS-4bSAmpHAXPFaKlZ_UmY_46I",
   authDomain: "petcare-project-dec50.firebaseapp.com",
@@ -13,9 +9,9 @@ const firebaseConfig = {
   measurementId: "G-2YFYP2B3Z0"
 };
 
-// Khởi tạo Firebase
-const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+// Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
 
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('serviceForm');
@@ -36,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         // Lưu dữ liệu vào Firebase Realtime Database
-        const newCustomerRef = push(ref(database, 'customers'));
-        set(newCustomerRef, formData)
+        const newCustomerRef = database.ref('customers').push();
+        newCustomerRef.set(formData)
         .then(() => {
             console.log('Dữ liệu đã được lưu vào Firebase');
             const responseMessage = document.getElementById('responseMessage');
