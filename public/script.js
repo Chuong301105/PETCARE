@@ -1,81 +1,48 @@
-// Firebase configuration
+// Cấu hình Firebase của bạn (lấy từ Firebase Console)
 const firebaseConfig = {
-    apiKey: "AIzaSyD_49CYLkS-4bSAmpHAXPFaKlZ_UmY_46I",
-    authDomain: "petcare-project-dec50.firebaseapp.com",
-    databaseURL: "https://petcare-project-dec50-default-rtdb.firebaseio.com",
-    projectId: "petcare-project-dec50",
-    storageBucket: "petcare-project-dec50.appspot.com",
-    messagingSenderId: "257060539542",
-    appId: "1:257060539542:web:2772a651332c5f155006b7",
-    measurementId: "G-2YFYP2B3Z0"
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_AUTH_DOMAIN",
+    databaseURL: "YOUR_DATABASE_URL",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_STORAGE_BUCKET",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+    appId: "YOUR_APP_ID"
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// Khởi tạo Firebase
+const app = firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('serviceForm');
-    const petSelect = document.getElementById('pet');
-    const otherPetTypeDiv = document.getElementById('otherPetType');
-    const homeServiceSelect = document.getElementById('homeService');
-    const pickUpServiceSelect = document.getElementById('pickUpService');
-    const addressFieldDiv = document.getElementById('addressField');
+// DOM elements
+const messageList = document.getElementById('messageList');
+const messageInput = document.getElementById('messageInput');
+const dataForm = document.getElementById('dataForm');
 
-    // Show/Hide "other pet type" field
-    petSelect.addEventListener('change', function () {
-        if (petSelect.value === 'others') {
-            otherPetTypeDiv.style.display = 'block';
-        } else {
-            otherPetTypeDiv.style.display = 'none';
-        }
+// Khi form được submit, ghi dữ liệu vào Firebase
+dataForm.addEventListener('submit', function(event) {
+    event.preventDefault();  // Ngăn chặn việc reload trang
+
+    // Lấy giá trị từ input
+    const message = messageInput.value;
+
+    // Ghi dữ liệu vào Realtime Database
+    firebase.database().ref('messages').push().set({
+        message: message
     });
 
-    // Show/Hide "address" field
-    function toggleAddressField() {
-        if (homeServiceSelect.value === 'yes' || pickUpServiceSelect.value === 'yes') {
-            addressFieldDiv.style.display = 'block';
-        } else {
-            addressFieldDiv.style.display = 'none';
-        }
-    }
+    // Xóa input sau khi gửi
+    messageInput.value = '';
+});
 
-    homeServiceSelect.addEventListener('change', toggleAddressField);
-    pickUpServiceSelect.addEventListener('change', toggleAddressField);
-    toggleAddressField(); // Set initial state on load
+// Lắng nghe sự thay đổi từ Firebase và cập nhật dữ liệu theo thời gian thực
+firebase.database().ref('messages').on('value', function(snapshot) {
+    // Xóa danh sách hiện tại
+    messageList.innerHTML = '';
 
-    // Handle form submission
-    form.addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent page reload
-
-        const formData = {
-            name: document.getElementById('name').value,
-            phone: document.getElementById('phone').value,
-            email: document.getElementById('email').value,
-            pet: document.getElementById('pet').value,
-            otherType: document.getElementById('otherType').value || '',
-            homeService: document.getElementById('homeService').value,
-            pickUpService: document.getElementById('pickUpService').value,
-            address: document.getElementById('address').value || '',
-            message: document.getElementById('message').value
-        };
-
-        // Push the data to Firebase
-        const newCustomerRef = database.ref('customers').push();
-        newCustomerRef.set(formData)
-            .then(() => {
-                const responseMessage = document.getElementById('responseMessage');
-                responseMessage.textContent = 'Đã gửi thông tin thành công!';
-                responseMessage.style.color = 'green';
-                responseMessage.style.display = 'block';
-                form.reset(); // Reset form after successful submission
-            })
-            .catch((error) => {
-                console.error('Lỗi khi lưu dữ liệu vào Firebase:', error);
-                const responseMessage = document.getElementById('responseMessage');
-                responseMessage.textContent = 'Có lỗi xảy ra khi gửi thông tin!';
-                responseMessage.style.color = 'red';
-                responseMessage.style.display = 'block';
-            });
+    // Lặp qua các tin nhắn và hiển thị
+    snapshot.forEach(function(childSnapshot) {
+        const li = document.createElement('li');
+        li.textContent = childSnapshot.val().message;
+        messageList.appendChild(li);
     });
 });
