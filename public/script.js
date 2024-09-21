@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Toggle the visibility of the address field
     function toggleAddressField() {
-        if (homeService.value === 'yes' || pickUpService.value === 'yes') {
+        if (homeService.value == 'yes' || pickUpService.value == 'yes') {
             addressField.style.display = 'block';
         } else {
             addressField.style.display = 'none';
