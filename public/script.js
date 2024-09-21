@@ -25,4 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     homeServiceSelect.addEventListener('change', toggleAddressField);
     pickUpServiceSelect.addEventListener('change', toggleAddressField);
+
+    // Initial state of address field when the page loads
+    toggleAddressField();
 });
