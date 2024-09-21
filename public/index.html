@@ -46,9 +46,9 @@
             });
 
             // Listen for real-time updates
-            supabase
-                .from('messages')  // Make sure this table exists
-                .on('INSERT', payload => {
+            const channel = supabase
+                .channel('public:messages')
+                .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, payload => {
                     const li = document.createElement('li');
                     li.textContent = payload.new.content;
                     messageList.appendChild(li);
